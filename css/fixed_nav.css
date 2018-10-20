@@ -1,0 +1,38 @@
+.fixed_nav_wrap {
+  width: 80%;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px;
+  background: #fff;
+  overflow: auto;
+}
+.fixed_nav_wrap .fixed_nav {
+  line-height: 40px;
+  padding: 5px;
+  user-select: none;
+}
+.fixed_nav_wrap .fixed_nav li {
+  float: left;
+  list-style: none;
+  cursor: pointer;
+  padding: 0 18px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #666;
+  margin: 0 15px;
+}
+.fixed_nav_wrap .fixed_nav li.tar_show {
+  background: #fc3601;
+  color: #fff;
+}
+.fixed_nav_wrap .fixed_nav:after {
+  content: "";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  clear: both;
+}

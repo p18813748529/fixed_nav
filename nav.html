@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/fixed_nav.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .split{
+            height: 500px;
+        }
+        p{
+            background: #ddd;
+        }
+        .tip_wrap{
+            overflow: auto;
+        }
+        .tip{
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <!-- <ul class="fixed_nav">
+        <li>文章列表1</li>
+        <li>文章列表2</li>
+        <li>文章列表3</li>
+    </ul> -->
+    <div>
+        ele:目标的集合，选择器字符串或dom元素   必填<br/>
+        texts: 对应列表显示的内容，不填默认为texts1，texts2，texts3，...<br/>
+        speed:"slow"  滚动的速度，不填默认为 normal<br/>
+    </div>
+    <div class="tip_wrap">
+        <div class="tip">
+            var $p = $("p");
+            fixed_nav.init({
+                ele: $p,
+                texts: [1, 2, 3, 4, 5, 6, 7, 8],
+                speed:"slow"
+            })
+            js:
+            var fixed_nav = (function () {
+                return {
+                    init: function (options) {
+                        // 没有锚点目标，无法实现，直接返回
+                        if (!options.ele) return;
+                        this.options = options;
+                        this.speed = options.speed || "";
+                        this.$navWrap = $(`<div class="fixed_nav_wrap"></div>`);
+                        this.$nav = $(`<ul class="fixed_nav"></ul>`);
+                        this.createList($(options.ele), options.texts);
+                        this.event();
+                    },
+                    event: function () {
+                        var _this = this;
+                        // 点击对应的锚点滚动到对应的坐标位置
+                        this.$nav.on("click", "li", function () {
+                            $(this).addClass("tar_show").siblings().removeClass("tar_show");
+                            var index = this.getAttribute("attr-index");
+                            $(document.documentElement).stop();
+                            $(document.documentElement).animate({"scrollTop":_this.pos[index]},_this.speed);
+                        });
+                    },
+                    createList: function (ele, texts) {
+                        // 如果没有传列表内容，就默认用text
+                        if (!texts) {
+                            texts = [];
+                            for (var i = 0; i < ele.length; i++) {
+                                texts.push("text" + i);
+                            }
+                        }
+                        // 储存锚点坐标
+                        this.pos = [];
+                        for (var i = 0; i < ele.length; i++) {
+                            var $li = $(`<li attr-index=${i}>${texts[i] || "text" + i}</li>`);
+                            this.$nav.append($li);
+                            this.pos.push(this.getScrollTop(ele[i]));
+                        }
+                        this.$nav.css("width",i * 80 + "px");
+                        this.$navWrap.append(this.$nav);
+                        $("body").append(this.$navWrap);
+                        console.log(this.pos)
+                    },
+                    // 获取锚点目标距离顶部的位置
+                    getScrollTop: function (tar) {
+                        var h = 0;
+                        while(tar.offsetParent){
+                            h += tar.offsetTop;
+                            tar = tar.offsetParent;
+                        }
+                        return h;
+                    }
+                }
+            }());
+        </div>
+    </div>
+    <p>文章列表1</p>
+    <div class="split"></div>
+    <p>文章列表2</p>
+    <div class="split"></div>    
+    <p>文章列表3</p>
+    <div class="split"></div>
+    <p>文章列表4</p>
+    <div class="split"></div>
+    <p>文章列表5</p>
+    <div class="split"></div>
+    <p>文章列表6</p>
+    <div class="split"></div>
+    <p>文章列表7</p>
+    <div class="split"></div>
+    <p>文章列表8</p>
+    <div class="split"></div>
+    <p>文章列表9</p>
+    <script src="js/jquery.js"></script>
+    <script src="js/fixed_nav.js"></script>
+    <script>
+       var $p = $("p");
+        fixed_nav.init({
+            ele: $p,
+            texts: [1, 2, 3, 4, 5, 6, 7, 8],
+            speed:"slow"
+        })
+    </script>
+</body>
+</html>
