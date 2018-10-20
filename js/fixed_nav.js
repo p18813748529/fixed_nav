@@ -19,6 +19,13 @@ var fixed_nav = (function () {
                 $(document.documentElement).stop();
                 $(document.documentElement).animate({"scrollTop":_this.pos[index]},_this.speed);
             });
+            $(window).on("scroll",function(){
+                if(document.documentElement.scrollTop>_this.pos[0] - 300){
+                    _this.$navWrap.show();
+                }else{
+                    _this.$navWrap.hide();
+                }
+            });
         },
         createList: function (ele, texts) {
             // 如果没有传列表内容，就默认用text
